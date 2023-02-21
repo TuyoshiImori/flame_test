@@ -1,0 +1,100 @@
+{
+  "objects": [
+    {
+      "comment": "上の柵",
+      "height": 37.0,
+      "id": 16,
+      "name": "",
+      "rotation": 0,
+      "type": "",
+      "visible": true,
+      "width": 226.0,
+      "x": 735.0,
+      "y": 764.0
+    },
+    {
+      "comment": "下の柵",
+      "height": 37.0,
+      "id": 20,
+      "name": "",
+      "rotation": 0,
+      "type": "",
+      "visible": true,
+      "width": 226.0,
+      "x": 735.0,
+      "y": 857.0
+    },
+    {
+      "comment": "左の棒",
+      "height": 60.0,
+      "id": 18,
+      "name": "",
+      "rotation": 0,
+      "type": "",
+      "visible": true,
+      "width": 30.0,
+      "x": 1009.0,
+      "y": 639.0
+    },
+    {
+      "comment": "右の棒",
+      "height": 60.0,
+      "id": 19,
+      "name": "",
+      "rotation": 0,
+      "type": "",
+      "visible": true,
+      "width": 30.0,
+      "x": 1104.0,
+      "y": 639.0
+    },
+    {
+      "comment": "左のワールドフレーム",
+      "height": 2400.0,
+      "id": 21,
+      "name": "",
+      "rotation": 0,
+      "type": "",
+      "visible": true,
+      "width": 162.0,
+      "x": -4.0,
+      "y": -1.0
+    },
+    {
+      "comment": "下のワールドフレーム",
+      "height": 33.0,
+      "id": 23,
+      "name": "",
+      "rotation": 0,
+      "type": "",
+      "visible": true,
+      "width": 2076.0,
+      "x": 162.0,
+      "y": 2142.0
+    },
+    {
+      "comment": "上のワールドフレーム",
+      "height": 37.0,
+      "id": 24,
+      "name": "",
+      "rotation": 0,
+      "type": "",
+      "visible": true,
+      "width": 2080.0,
+      "x": 162.0,
+      "y": 29.0
+    },
+    {
+      "comment": "右のワールドフレーム",
+      "height": 2406.0,
+      "id": 25,
+      "name": "",
+      "rotation": 0,
+      "type": "",
+      "visible": true,
+      "width": 158.0,
+      "x": 2243.0,
+      "y": -8.0
+    }
+  ]
+}
