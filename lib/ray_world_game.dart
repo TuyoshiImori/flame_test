@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
+import 'package:flame_test/helpers/map_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -20,11 +21,10 @@ class RayWorldGame extends FlameGame
     super.onLoad();
     await add(_world);
 
-    // Create a basic joystick component on left.
+    // 左側にジョイスティック
     final joystick = JoystickComponent(
       anchor: Anchor.bottomLeft,
       position: Vector2(30, size.y - 30),
-      // size: 100,
       background: CircleComponent(
         radius: 60,
         paint: Paint()..color = Colors.white.withOpacity(0.5),
@@ -39,6 +39,18 @@ class RayWorldGame extends FlameGame
     add(_player);
     addWorldCollision();
 
+    // 右側にボタン
+    final button = ButtonComponent(
+      button: CircleComponent(
+        radius: 60,
+        paint: Paint()..color = Colors.white.withOpacity(0.5),
+      ),
+      anchor: Anchor.bottomRight,
+      position: Vector2(size.x - 30, size.y - 30),
+      onPressed: _player.joystickAction,
+    );
+    add(button);
+
     _player.position = (_world.size / 2);
 
     camera.followComponent(
@@ -48,25 +60,19 @@ class RayWorldGame extends FlameGame
   }
 
   void addWorldCollision() async {
-    add(
-      WorldCollidable()
-        ..position = Vector2(100, 100)
-        ..width = 2080
-        ..height = 2400,
-    );
+    // add(
+    //   WorldCollidable()
+    //     ..position = Vector2(100, 100)
+    //     ..width = 2080
+    //     ..height = 2400,
+    // );
 
-    // for (var rect in (await MapLoader.readRayWorldCollisionMap())) {
-    //   print(rect.width);
-    //   print(rect.height);
-    //   print(rect.left);
-    //   print(rect.top);
-    //   print('ほげほえg');
-    //
-    //   add(WorldCollidable()
-    //     ..position = Vector2(rect.left, rect.top)
-    //     ..width = rect.width
-    //     ..height = rect.height);
-    // }
+    for (var rect in (await MapLoader.readRayWorldCollisionMap())) {
+      add(WorldCollidable()
+        ..position = Vector2(rect.left, rect.top)
+        ..width = rect.width
+        ..height = rect.height);
+    }
   }
 
   void onJoypadDirectionChanged(Direction direction) {

@@ -100,6 +100,10 @@ class Player extends SpriteAnimationComponent
     movePlayer(dt);
   }
 
+  void joystickAction() {
+    print('ボタン');
+  }
+
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
@@ -215,19 +219,28 @@ class Player extends SpriteAnimationComponent
     return true;
   }
 
+  /// 条件式は壁に衝突判定が出てる状態で別の壁をすり抜けてしまうバグの対処
   void moveUp(double delta) {
-    position.add(Vector2(0, delta * -_playerSpeed));
+    if (position.y + (delta * -_playerSpeed) > 60) {
+      position.add(Vector2(0, delta * -_playerSpeed));
+    }
   }
 
   void moveDown(double delta) {
-    position.add(Vector2(0, delta * _playerSpeed));
+    if (position.y + (delta * _playerSpeed) < 2100) {
+      position.add(Vector2(0, delta * _playerSpeed));
+    }
   }
 
   void moveLeft(double delta) {
-    position.add(Vector2(delta * -_playerSpeed, 0));
+    if (position.x + (delta * -_playerSpeed) > 150) {
+      position.add(Vector2(delta * -_playerSpeed, 0));
+    }
   }
 
   void moveRight(double delta) {
-    position.add(Vector2(delta * _playerSpeed, 0));
+    if (position.x + (delta * _playerSpeed) < 2200) {
+      position.add(Vector2(delta * _playerSpeed, 0));
+    }
   }
 }
