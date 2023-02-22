@@ -1,4 +1,3 @@
-import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame_test/components/enemy.dart';
@@ -13,8 +12,7 @@ import 'helpers/direction.dart';
 
 class RayWorldGame extends FlameGame
     with HasDraggables, HasTappables, HasCollisionDetection, KeyboardEvents {
-  // final Player _player = Player();
-  late Player _player;
+  final Player _player = Player();
   final World _world = World();
   final Enemy _enemy = Enemy(length: 50);
 
@@ -23,35 +21,7 @@ class RayWorldGame extends FlameGame
     super.onLoad();
     await add(_world);
     await add(_enemy);
-
-    // 左側にジョイスティック
-    final joystick = JoystickComponent(
-      anchor: Anchor.bottomLeft,
-      position: Vector2(30, size.y - 30),
-      background: CircleComponent(
-        radius: 60,
-        paint: Paint()..color = Colors.white.withOpacity(0.5),
-      ),
-      knob: CircleComponent(radius: 30),
-    );
-    add(joystick);
-
-    _player = Player(
-      joystick: joystick,
-    );
-    add(_player);
-
-    // 右側にボタン
-    final button = ButtonComponent(
-      button: CircleComponent(
-        radius: 60,
-        paint: Paint()..color = Colors.white.withOpacity(0.5),
-      ),
-      anchor: Anchor.bottomRight,
-      position: Vector2(size.x - 30, size.y - 30),
-      onPressed: _player.joystickAction,
-    );
-    add(button);
+    await add(_player);
 
     // ワールドに衝突判定を追加
     addWorldCollision();
@@ -65,13 +35,6 @@ class RayWorldGame extends FlameGame
   }
 
   void addWorldCollision() async {
-    // add(
-    //   WorldCollidable()
-    //     ..position = Vector2(100, 100)
-    //     ..width = 2080
-    //     ..height = 2400,
-    // );
-
     for (var rect in (await MapLoader.readRayWorldCollisionMap())) {
       add(WorldCollidable()
         ..position = Vector2(rect.left, rect.top)
@@ -80,8 +43,13 @@ class RayWorldGame extends FlameGame
     }
   }
 
+  // _playerとjoyStickの操作を繋げる
   void onJoypadDirectionChanged(Direction direction) {
     _player.direction = direction;
+  }
+
+  void onJoypadOnTap() {
+    _player.joystickAction();
   }
 
   WorldCollidable createWorldCollidable(Rect rect) {

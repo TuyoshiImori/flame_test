@@ -6,9 +6,14 @@ import 'package:flutter/material.dart';
 import 'direction.dart';
 
 class Joypad extends StatefulWidget {
-  final ValueChanged<Direction>? onDirectionChanged;
+  final ValueChanged<Direction> onDirectionChanged;
+  final Function() onJoypadOnTap;
 
-  const Joypad({Key? key, this.onDirectionChanged}) : super(key: key);
+  const Joypad({
+    Key? key,
+    required this.onDirectionChanged,
+    required this.onJoypadOnTap,
+  }) : super(key: key);
 
   @override
   JoypadState createState() => JoypadState();
@@ -28,7 +33,9 @@ class JoypadState extends State<Joypad> {
           borderRadius: BorderRadius.circular(60),
         ),
         child: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            widget.onJoypadOnTap();
+          },
           onPanDown: onDragDown,
           onPanUpdate: onDragUpdate,
           onPanEnd: onDragEnd,
@@ -61,7 +68,7 @@ class JoypadState extends State<Joypad> {
 
     if (newDirection != direction) {
       direction = newDirection;
-      widget.onDirectionChanged!(direction);
+      widget.onDirectionChanged(direction);
     }
 
     setState(() {

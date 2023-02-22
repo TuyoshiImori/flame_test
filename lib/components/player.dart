@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
@@ -12,7 +10,6 @@ import '../helpers/direction.dart';
 
 class Player extends SpriteAnimationComponent
     with
-        //HasGameRef,
         KnowsGameSize,
         CollisionCallbacks,
         HasGameRef<RayWorldGame>,
@@ -29,13 +26,12 @@ class Player extends SpriteAnimationComponent
   late final SpriteSheet spriteSheet;
 
   // Player joystick
-  JoystickComponent joystick;
   Direction direction = Direction.none;
   Direction _collisionDirection = Direction.none;
   int spriteSheetRow = 0;
   bool _hasCollided = false;
 
-  Player({required this.joystick})
+  Player()
       : super(
           size: Vector2.all(50.0),
         );
@@ -48,15 +44,6 @@ class Player extends SpriteAnimationComponent
       srcSize: Vector2(29.0, 32.0),
     );
     _loadAnimations().then((_) => {animation = _standingAnimation});
-    // add(
-    //   RectangleHitbox(
-    //     size: Vector2(
-    //       width.floorToDouble(),
-    //       height.floorToDouble(),
-    //     ),
-    //     position: Vector2(0, 0),
-    //   ),
-    // );
   }
 
   @override
@@ -65,11 +52,10 @@ class Player extends SpriteAnimationComponent
 
     // Adding a circular hitbox with radius as 0.8 times
     // the smallest dimension of this components size.
-    final shape = CircleHitbox.relative(
-      0.8,
-      parentSize: size,
-      position: size / 2,
+    final shape = RectangleHitbox(
+      size: size,
       anchor: Anchor.center,
+      position: size / 2,
     );
     add(shape);
 
@@ -79,24 +65,6 @@ class Player extends SpriteAnimationComponent
   @override
   void update(double dt) {
     super.update(dt);
-    if (!joystick.delta.isZero()) {
-      var knobAngle = joystick.delta.screenAngle();
-      knobAngle = knobAngle < 0 ? 2 * pi + knobAngle : knobAngle;
-      const eightOfPi = pi / 8;
-      if (knobAngle > 0 && knobAngle <= eightOfPi * 2) {
-        direction = Direction.up;
-      } else if (knobAngle > eightOfPi * 2 && knobAngle <= eightOfPi * 6) {
-        direction = Direction.right;
-      } else if (knobAngle > eightOfPi * 6 && knobAngle <= eightOfPi * 10) {
-        direction = Direction.down;
-      } else if (knobAngle > eightOfPi * 10 && knobAngle <= eightOfPi * 14) {
-        direction = Direction.left;
-      } else if (knobAngle > eightOfPi * 14) {
-        direction = Direction.up;
-      }
-    } else {
-      direction = Direction.none;
-    }
     movePlayer(dt);
   }
 

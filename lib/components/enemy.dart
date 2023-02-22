@@ -51,20 +51,12 @@ class Enemy extends PositionComponent
 
     // Adding a circular hitbox with radius as 0.8 times
     // the smallest dimension of this components size.
-    List<Vector2> points = [
-      Vector2(0, 0),
-      Vector2(50, 0),
-      Vector2(50, 50),
-      Vector2(0, 50)
-    ];
-    final shapes = PolygonHitbox(points);
-    final shape = CircleHitbox.relative(
-      0.8,
-      parentSize: size,
-      position: size / 2,
+    final shape = RectangleHitbox(
+      size: size,
       anchor: Anchor.center,
+      position: size / 2,
     );
-    add(shapes);
+    add(shape);
   }
 
   @override

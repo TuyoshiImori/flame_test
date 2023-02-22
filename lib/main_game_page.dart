@@ -1,4 +1,5 @@
 import 'package:flame/game.dart';
+import 'package:flame_test/helpers/joypad.dart';
 import 'package:flutter/material.dart';
 
 import 'ray_world_game.dart';
@@ -20,13 +21,16 @@ class MainGameState extends State<MainGamePage> {
       body: Stack(
         children: [
           GameWidget(game: game),
-          // Align(
-          //   alignment: Alignment.bottomRight,
-          //   child: Padding(
-          //     padding: const EdgeInsets.all(32.0),
-          //     child: Joypad(onDirectionChanged: game.onJoypadDirectionChanged),
-          //   ),
-          // )
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: Joypad(
+                onDirectionChanged: game.onJoypadDirectionChanged,
+                onJoypadOnTap: game.onJoypadOnTap,
+              ),
+            ),
+          )
         ],
       ),
     );

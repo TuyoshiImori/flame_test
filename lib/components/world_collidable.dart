@@ -6,7 +6,6 @@ import 'package:flame_test/ray_world_game.dart';
 class WorldCollidable extends PositionComponent
     with HasGameRef<RayWorldGame>, KnowsGameSize, CollisionCallbacks {
   WorldCollidable() {
-    // addHitbox(HitboxRectangle());
     add(RectangleHitbox());
   }
 }
