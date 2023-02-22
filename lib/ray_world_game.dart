@@ -1,3 +1,4 @@
+import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame_test/components/enemy.dart';
@@ -25,13 +26,28 @@ class RayWorldGame extends FlameGame
 
     // ワールドに衝突判定を追加
     addWorldCollision();
-
     _player.position = (_world.size / 2);
 
     camera.followComponent(
       _player,
+      // プレイヤーの表示位置を画面のちょうど真ん中になるように比率を修正
+      relativeOffset: Anchor(
+        ((size.x - 50) / 2) / size.x,
+        ((size.y - 50) / 2) / size.y,
+      ),
       worldBounds: Rect.fromLTRB(0, 0, _world.size.x, _world.size.y),
     );
+
+    print(_player.position.x - ((size.x - 50) / 2));
+    final textBox = TextBoxComponent(
+      text: 'Hellow world',
+      position: Vector2(
+        _player.position.x - ((size.x - 50) / 2),
+        _player.position.y + ((size.y - 50) / 2) - 50,
+      ),
+      size: Vector2(size.x, 50),
+    );
+    add(textBox);
   }
 
   void addWorldCollision() async {

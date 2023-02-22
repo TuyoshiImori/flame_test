@@ -30,7 +30,7 @@ class MainGameState extends State<MainGamePage> {
                 onJoypadOnTap: game.onJoypadOnTap,
               ),
             ),
-          )
+          ),
         ],
       ),
     );

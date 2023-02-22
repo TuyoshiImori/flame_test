@@ -50,15 +50,14 @@ class Player extends SpriteAnimationComponent
   @override
   void onMount() {
     super.onMount();
-    // オブジェクトのサイズと同じ不通過衝突判定
+    // オブジェクトのサイズと同じ衝突判定
     final shape = RectangleHitbox(
       size: size,
       anchor: Anchor.center,
+      // srcSizeのxの半分を引くことで画面の真ん中に配置
       position: size / 2,
     );
     add(shape);
-
-    //_playerData = Provider.of<PlayerData>(gameRef.buildContext!, listen: false);
   }
 
   @override
