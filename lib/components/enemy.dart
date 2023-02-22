@@ -1,6 +1,7 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
+import 'package:flame_test/components/player.dart';
 import 'package:flame_test/helpers/knows_game_size.dart';
 import 'package:flame_test/ray_world_game.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class Enemy extends PositionComponent
         HasGameRef<RayWorldGame>,
         KeyboardHandler {
   Enemy({
-    required this.length,
+    this.length = 50,
     Color? color,
   })  : color = color ?? Colors.greenAccent,
         super(
@@ -21,6 +22,11 @@ class Enemy extends PositionComponent
         );
   late double length;
   late Color color;
+
+  @override
+  Future<void> onLoad() async {
+    super.onLoad();
+  }
 
   @override
   void onGameResize(Vector2 size) {
@@ -48,11 +54,9 @@ class Enemy extends PositionComponent
   @override
   void onMount() {
     super.onMount();
-
-    // Adding a circular hitbox with radius as 0.8 times
-    // the smallest dimension of this components size.
+    // オブジェクトのサイズと同じ衝突判定
     final shape = RectangleHitbox(
-      size: size,
+      size: Vector2(size.x + 30, size.y + 30),
       anchor: Anchor.center,
       position: size / 2,
     );
@@ -72,7 +76,14 @@ class Enemy extends PositionComponent
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
+    if (other is Player) {
+      color = Colors.red;
+    }
+  }
 
-    //
+  @override
+  void onCollisionEnd(PositionComponent other) {
+    super.onCollisionEnd(other);
+    color = Colors.greenAccent;
   }
 }

@@ -14,7 +14,7 @@ class RayWorldGame extends FlameGame
     with HasDraggables, HasTappables, HasCollisionDetection, KeyboardEvents {
   final Player _player = Player();
   final World _world = World();
-  final Enemy _enemy = Enemy(length: 50);
+  final Enemy _enemy = Enemy();
 
   @override
   Future<void> onLoad() async {
@@ -36,11 +36,21 @@ class RayWorldGame extends FlameGame
 
   void addWorldCollision() async {
     for (var rect in (await MapLoader.readRayWorldCollisionMap())) {
-      add(WorldCollidable()
-        ..position = Vector2(rect.left, rect.top)
-        ..width = rect.width
-        ..height = rect.height);
+      add(
+        WorldCollidable()
+          ..position = Vector2(rect.left, rect.top)
+          ..width = rect.width
+          ..height = rect.height,
+      );
     }
+
+    // enemyの不通過衝突判定
+    add(
+      WorldCollidable()
+        ..position = Vector2(1175, 975)
+        ..width = 50
+        ..height = 50,
+    );
   }
 
   // _playerとjoyStickの操作を繋げる
@@ -48,6 +58,7 @@ class RayWorldGame extends FlameGame
     _player.direction = direction;
   }
 
+  // joyStickのonTap
   void onJoypadOnTap() {
     _player.joystickAction();
   }

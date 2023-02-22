@@ -30,6 +30,7 @@ class Player extends SpriteAnimationComponent
   Direction _collisionDirection = Direction.none;
   int spriteSheetRow = 0;
   bool _hasCollided = false;
+  bool _hasEnemy = false;
 
   Player()
       : super(
@@ -49,9 +50,7 @@ class Player extends SpriteAnimationComponent
   @override
   void onMount() {
     super.onMount();
-
-    // Adding a circular hitbox with radius as 0.8 times
-    // the smallest dimension of this components size.
+    // オブジェクトのサイズと同じ不通過衝突判定
     final shape = RectangleHitbox(
       size: size,
       anchor: Anchor.center,
@@ -69,16 +68,23 @@ class Player extends SpriteAnimationComponent
   }
 
   void joystickAction() {
-    print('ボタン');
+    if (_hasEnemy) {
+      print('ボタン');
+    }
   }
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
-    if (other is WorldCollidable || other is Enemy) {
+    if (other is WorldCollidable) {
       if (!_hasCollided) {
         _hasCollided = true;
         _collisionDirection = direction;
+      }
+    }
+    if (other is Enemy) {
+      if (!_hasEnemy) {
+        _hasEnemy = true;
       }
     }
   }
@@ -87,6 +93,7 @@ class Player extends SpriteAnimationComponent
   void onCollisionEnd(PositionComponent other) {
     super.onCollisionEnd(other);
     _hasCollided = false;
+    _hasEnemy = false;
   }
 
   Future<void> _loadAnimations() async {

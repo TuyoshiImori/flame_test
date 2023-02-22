@@ -22,7 +22,7 @@ class MainGameState extends State<MainGamePage> {
         children: [
           GameWidget(game: game),
           Align(
-            alignment: Alignment.bottomRight,
+            alignment: Alignment.bottomCenter,
             child: Padding(
               padding: const EdgeInsets.all(32.0),
               child: Joypad(
