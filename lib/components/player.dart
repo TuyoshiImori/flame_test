@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
+import 'package:flame_test/components/enemy.dart';
 import 'package:flame_test/components/world_collidable.dart';
 import 'package:flame_test/helpers/knows_game_size.dart';
 import 'package:flame_test/ray_world_game.dart';
@@ -34,9 +35,8 @@ class Player extends SpriteAnimationComponent
   int spriteSheetRow = 0;
   bool _hasCollided = false;
 
-  Player({
-    required this.joystick,
-  }) : super(
+  Player({required this.joystick})
+      : super(
           size: Vector2.all(50.0),
         );
 
@@ -107,7 +107,7 @@ class Player extends SpriteAnimationComponent
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
-    if (other is WorldCollidable) {
+    if (other is WorldCollidable || other is Enemy) {
       if (!_hasCollided) {
         _hasCollided = true;
         _collisionDirection = direction;

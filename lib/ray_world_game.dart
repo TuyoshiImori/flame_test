@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
+import 'package:flame_test/components/enemy.dart';
 import 'package:flame_test/helpers/map_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,11 +16,13 @@ class RayWorldGame extends FlameGame
   // final Player _player = Player();
   late Player _player;
   final World _world = World();
+  final Enemy _enemy = Enemy(length: 50);
 
   @override
   Future<void> onLoad() async {
     super.onLoad();
     await add(_world);
+    await add(_enemy);
 
     // 左側にジョイスティック
     final joystick = JoystickComponent(
@@ -37,7 +40,6 @@ class RayWorldGame extends FlameGame
       joystick: joystick,
     );
     add(_player);
-    addWorldCollision();
 
     // 右側にボタン
     final button = ButtonComponent(
@@ -50,6 +52,9 @@ class RayWorldGame extends FlameGame
       onPressed: _player.joystickAction,
     );
     add(button);
+
+    // ワールドに衝突判定を追加
+    addWorldCollision();
 
     _player.position = (_world.size / 2);
 
