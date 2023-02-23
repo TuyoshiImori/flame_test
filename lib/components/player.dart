@@ -69,6 +69,15 @@ class Player extends SpriteAnimationComponent
   void joystickAction() {
     if (_hasEnemy) {
       print('ボタン');
+      final textBox = TextBoxComponent(
+        text: 'Hellow world',
+        position: Vector2(
+          position.x - ((gameRef.size.x - 50) / 2),
+          position.y + ((gameRef.size.y - 50) / 2) - 50,
+        ),
+        size: Vector2(gameRef.size.x, 50),
+      );
+      gameRef.add(textBox);
     }
   }
 

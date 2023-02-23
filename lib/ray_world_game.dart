@@ -39,15 +39,16 @@ class RayWorldGame extends FlameGame
     );
 
     print(_player.position.x - ((size.x - 50) / 2));
-    final textBox = TextBoxComponent(
-      text: 'Hellow world',
-      position: Vector2(
-        _player.position.x - ((size.x - 50) / 2),
-        _player.position.y + ((size.y - 50) / 2) - 50,
-      ),
-      size: Vector2(size.x, 50),
-    );
-    add(textBox);
+
+    // final textBox = TextBoxComponent(
+    //   text: 'Hellow world',
+    //   position: Vector2(
+    //     _player.position.x - ((size.x - 50) / 2),
+    //     _player.position.y + ((size.y - 50) / 2) - 50,
+    //   ),
+    //   size: Vector2(size.x, 50),
+    // );
+    // add(textBox);
   }
 
   void addWorldCollision() async {
@@ -85,6 +86,11 @@ class RayWorldGame extends FlameGame
     collidable.width = rect.width;
     collidable.height = rect.height;
     return collidable;
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
   }
 
   @override

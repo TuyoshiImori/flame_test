@@ -1,5 +1,7 @@
 import 'package:flame/game.dart';
 import 'package:flame_test/helpers/joypad.dart';
+import 'package:flame_test/overlays/pause_button.dart';
+import 'package:flame_test/overlays/pause_menu.dart';
 import 'package:flutter/material.dart';
 
 import 'ray_world_game.dart';
@@ -20,7 +22,24 @@ class MainGameState extends State<MainGamePage> {
       backgroundColor: const Color.fromRGBO(0, 0, 0, 1),
       body: Stack(
         children: [
-          GameWidget(game: game),
+          GameWidget(
+            game: game,
+            initialActiveOverlays: const [PauseButton.id],
+            overlayBuilderMap: {
+              PauseButton.id: (BuildContext context, RayWorldGame gameRef) =>
+                  PauseButton(
+                    gameRef: gameRef,
+                  ),
+              PauseMenu.id: (BuildContext context, RayWorldGame gameRef) =>
+                  PauseMenu(
+                    gameRef: gameRef,
+                  ),
+              // GameOverMenu.id: (BuildContext context, RayWorldGame gameRef) =>
+              //     GameOverMenu(
+              //       gameRef: gameRef,
+              //     ),
+            },
+          ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
