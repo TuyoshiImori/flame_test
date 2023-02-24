@@ -1,6 +1,6 @@
 import 'package:flame/game.dart';
-import 'package:flame_test/helpers/joypad.dart';
 import 'package:flame_test/overlays/joypad_screen.dart';
+import 'package:flame_test/overlays/message_board.dart';
 import 'package:flame_test/overlays/pause_button.dart';
 import 'package:flame_test/overlays/pause_menu.dart';
 import 'package:flutter/material.dart';
@@ -43,21 +43,15 @@ class MainGameState extends State<MainGamePage> {
                   PauseMenu(
                     gameRef: gameRef,
                   ),
+              MessageBoard.id: (BuildContext context, RayWorldGame gameRef) =>
+                  MessageBoard(
+                    gameRef: gameRef,
+                  ),
               // GameOverMenu.id: (BuildContext context, RayWorldGame gameRef) =>
               //     GameOverMenu(
               //       gameRef: gameRef,
               //     ),
             },
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(32.0),
-              child: Joypad(
-                onDirectionChanged: game.onJoypadDirectionChanged,
-                onJoypadOnTap: game.onJoypadOnTap,
-              ),
-            ),
           ),
         ],
       ),

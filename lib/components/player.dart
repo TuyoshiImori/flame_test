@@ -4,6 +4,8 @@ import 'package:flame/sprite.dart';
 import 'package:flame_test/components/enemy.dart';
 import 'package:flame_test/components/world_collidable.dart';
 import 'package:flame_test/helpers/knows_game_size.dart';
+import 'package:flame_test/overlays/message_board.dart';
+import 'package:flame_test/overlays/pause_button.dart';
 import 'package:flame_test/ray_world_game.dart';
 
 import '../helpers/direction.dart';
@@ -69,15 +71,21 @@ class Player extends SpriteAnimationComponent
   void joystickAction() {
     if (_hasEnemy) {
       print('ボタン');
-      final textBox = TextBoxComponent(
-        text: 'Hellow world',
-        position: Vector2(
-          position.x - ((gameRef.size.x - 50) / 2),
-          position.y + ((gameRef.size.y - 50) / 2) - 50,
-        ),
-        size: Vector2(gameRef.size.x, 50),
-      );
-      gameRef.add(textBox);
+      gameRef.pauseEngine();
+      gameRef.text = 'ボタンを押したよ';
+      gameRef.overlays.remove(PauseButton.id);
+      gameRef.overlays.add(MessageBoard.id);
+
+      //gameRef.overlays.add();
+      // final textBox = TextBoxComponent(
+      //   text: 'Hellow world',
+      //   position: Vector2(
+      //     position.x - ((gameRef.size.x - 50) / 2),
+      //     position.y + ((gameRef.size.y - 50) / 2) - 50,
+      //   ),
+      //   size: Vector2(gameRef.size.x, 50),
+      // );
+      // gameRef.add(textBox);
     }
   }
 

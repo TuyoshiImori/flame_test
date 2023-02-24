@@ -16,6 +16,7 @@ class RayWorldGame extends FlameGame
   final Player _player = Player();
   final World _world = World();
   final Enemy _enemy = Enemy();
+  var text = '';
 
   @override
   Future<void> onLoad() async {

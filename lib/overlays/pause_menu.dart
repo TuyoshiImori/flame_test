@@ -47,23 +47,6 @@ class PauseMenu extends StatelessWidget {
               child: const Text('ゲームに戻る'),
             ),
           ),
-          // Exit button.
-          SizedBox(
-            width: MediaQuery.of(context).size.width / 3,
-            child: ElevatedButton(
-              onPressed: () {
-                gameRef.overlays.remove(PauseMenu.id);
-                gameRef.resumeEngine();
-
-                // Navigator.of(context).pushReplacement(
-                //   MaterialPageRoute(
-                //     builder: (context) => const MainMenu(),
-                //   ),
-                // );
-              },
-              child: const Text('タイトルに戻る'),
-            ),
-          ),
         ],
       ),
     );
